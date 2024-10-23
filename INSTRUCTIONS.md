@@ -39,7 +39,7 @@ conda activate sam_adapt_brain;
 **Training**
 
 ```
-python train.py -net sam -mod sam_lora -exp_name ... -sam_ckpt ./checkpoint/sam/sam_vit_b_01ec64.pth -b 1 -dataset brats -thd True  -data_path ../data -w 8 -four_chan True 
+python train.py -net sam -mod sam_lora -exp_name drytest -sam_ckpt ./checkpoint/sam/sam_vit_b_01ec64.pth -b 1 -dataset brats -thd True  -data_path ../data -w 8 -four_chan True 
 ```
 
 - `mod` can be defined as: `sam_lora` to train LoRA blocks making SAM adapt to the medical domain; or `sam` in case you want to maintain the original SAM architecture. 
