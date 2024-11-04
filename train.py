@@ -39,7 +39,7 @@ from models.common import loralib as lora
 
 args = cfg.parse_args()
 
-GPUdevice = torch.device('cuda', args.gpu_device)
+GPUdevice = torch.device('cpu', args.gpu_device)
 net = get_network(args, args.net, use_gpu=args.gpu, gpu_device=GPUdevice, distribution = args.distributed)
 if args.pretrain:
     weights = torch.load(args.pretrain)

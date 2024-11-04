@@ -39,7 +39,8 @@ from loss import EDiceLoss
 
 args = cfg.parse_args()
 
-GPUdevice = torch.device('cuda', args.gpu_device)
+# GPUdevice = torch.device('cuda', args.gpu_device)
+GPUdevice = torch.device('cpu', args.gpu_device)
 pos_weight = torch.ones([1]).cuda(device=GPUdevice)*2
 criterion_G = torch.nn.BCEWithLogitsLoss(pos_weight=pos_weight)
 seed = torch.randint(1,11,(args.b,7))
@@ -57,7 +58,7 @@ def train_sam(args, net: nn.Module, optimizer,  train_loader,
     net.train()
     optimizer.zero_grad()
 
-    GPUdevice = torch.device('cuda:' + str(args.gpu_device))
+    GPUdevice = torch.device('cpu:' + str(args.gpu_device))
 
     if args.thd:
         sigmoid = nn.Sigmoid()
@@ -71,9 +72,9 @@ def train_sam(args, net: nn.Module, optimizer,  train_loader,
             masks = pack['label'].to(dtype = torch.float32, device = GPUdevice)
             
             # If not enough GPU, uncomment the following 3 lines
-            # i_slices = SelectEquiSlices(4, masks)
-            # imgs = imgs[:,:,:,:,i_slices] 
-            # masks = masks[:,:,:,:,i_slices]
+            i_slices = SelectEquiSlices(4, masks)
+            imgs = imgs[:,:,:,:,i_slices] 
+            masks = masks[:,:,:,:,i_slices]
 
             if 'pt' not in pack:
                 a = masks
