@@ -30,7 +30,7 @@ from utils import random_click
 class Brats(Dataset):
     def __init__(self, args, data_path , transform = None,  mode = 'Training',prompt = 'click', plane = False):
         self.data_path = data_path
-        self.folder = 'brats_ssa' if args.dataset == 'brats_ssa' else ('brats_2020' if args.dataset == 'brats_2020' else ('brats_men' if args.dataset == 'brats_men' else ('brats_ped' if args.dataset == 'brats_ped' else 'brats')))
+        self.folder = 'brats_ssa' if args.dataset == 'brats_ssa' else ('brats_2020' if args.dataset == 'brats_2020' else ('brats_men' if args.dataset == 'brats_men' else ('brats_ped' if args.dataset == 'brats_ped' else ('brats_ped' if args.dataset == 'brats' else 'None'))))
         self.subfolders = [f.path for f in os.scandir(os.path.join(data_path, self.folder)) if f.is_dir()]
         self.mode = mode
         self.prompt = prompt
